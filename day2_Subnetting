@@ -1,0 +1,103 @@
+hot to subnet Rivan
+1. design implement accen using 10.0.0.0/8
+with 380 call agents TLs QAs PM
+C.S.I. = convertIT, SubtractIT, ipasoksaHiwa!
+ConvertIT= 380 is = /9bits
+SubtractIT: /32 - /9 = /23 --> 3rf, 2i
+ipasok si 2i sa 3rd Hiwa:
+accenture.com = 10.0.2.0/23 +1 network address
+1st valid: 10.0.2.1
+
+notaccenture.com= 10.0.4.0/23
+
+32- 11bit = /21 3rd,8i
+10.0.8.0/21
+10.0.8.1
+10.0.15.255
+10.1
+
+telus
+32-12 = /20 3rd, 16i
+10.0.16.0/20
+10.0.16.1
+10.0.31.255
+10.0.32.0
+
+Concetrix4800
+32-13 = /19 3rd, 32i
+10.0.32.0/19
+10.0.32.1
+10.0.63.255
+10.0.64.0
+
+PCSO
+212
+32-8 /24 3rd, 1i
+10.0.1.0/24
+10.0.1.1
+10.0.0.255
+10.0.2.0
+-------------------------------------
+@corebaba switch
+
+config t
+vlan 25
+ name telus.com
+ exit
+Int vlan 25
+ no shut
+ ip add 10.0.16.1 255.255.240.0
+ip dhcp excluded-add 10.0.16.1 10.0.16.100
+ip dhcp pool telus.com
+ network 10.0.16.0 255.255.240.0
+ default-router 10.0.16.1
+ domain-name telus.com
+ dns-server 10.62.1.10
+ option 150 ip 10.62.100.8
+ Int Fa 0/5
+  swi Voice vlan 25
+  do sh ip dhcp binding
+
+
+For Concentrix
+
+config t
+vlan 25
+ name Concentrix.com
+ exit
+Int vlan 25
+ no shut
+ ip add 10.0.32.1 255.255.224.0
+ip dhcp excluded-add 10.0.32.1 10.0.32.100
+ip dhcp pool Concentrix.com
+ network 10.0.32.0 255.255.224.0
+ default-router 10.0.32.1
+ domain-name Concentrix.com
+ dns-server 10.62.1.10
+ option 150 ip 10.62.100.8
+ Int Fa 0/5
+  swi Voice vlan 25
+  do sh ip dhcp binding
+
+
+For PCSO
+
+config t
+vlan 25
+ name PCSO.com
+ exit
+Int vlan 25
+ no shut
+ ip add 10.0.1.1 255.255.255.0
+ip dhcp excluded-add 10.0.1.1 10.0.1.100
+ip dhcp pool PCSO.com
+ network 10.0.1.0 255.255.255.0
+ default-router 10.0.1.1
+ domain-name PCSO.com
+ dns-server 10.62.1.10
+ option 150 ip 10.62.100.8
+ Int Fa 0/5
+  swi Voice vlan 25
+  do sh ip dhcp binding
+
+
