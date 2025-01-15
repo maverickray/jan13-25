@@ -103,13 +103,15 @@ ip route  192.168.1.129 255.255.255.255 10.2.1.1
 do sh ip route static
 Pano mag static Route sa PC:
 cmd
-route  add 10.m.0.0 mask 255.255.0.0 10.m.1.4 -p
+route  add 10.62.0.0 mask 255.255.0.0 10.62.1.4 -p
 
 How to Create Default Route Cisco/PC/EndDevices:
 p1:
 config T
 ip route 0.0.0.0  0.0.0.0 10.2.1.1 1
 ip route 0.0.0.0  0.0.0.0 10.2.1.2 2
+ip route 192.168.1.130 255.255.255.255 10.2.1.2
+!longest predix rule = preferred
 !floating Static Routes
 do sh ip route static
 
@@ -140,7 +142,6 @@ conf t
 		network 192.168.1.129 0.0.0.0
 		end
 
-
 D2:
 config t
 router eigrp 100
@@ -164,11 +165,13 @@ conf t
 		end
 	sh ip eigrp nei
 
+
 R4:
 config t
 router eigrp 100
  no auto-summary
- network 10.1.4.8 0.0.0.3
+network 10.1.1.8 0.0.0.3 
+network 10.1.4.8 0.0.0.3
  network 10.1.4.4 0.0.0.3
  end
 !HOW TO CHECK IF EIGRP IS WORKING PROPERLY:
@@ -188,8 +191,8 @@ router ospf 1
 router-id 4.4.4.4
 network 4.4.4.4 0.0.0.0 area 0
 network 10.1.1.8 0.0.0.3 area 0
-interface e1/2
-   ip ospf network point-to-point
+ interface e1/2
+ip ospf network point-to-point
    !eto lab sa exam sa 2024/2025
 end
 R3:
@@ -225,7 +228,7 @@ router ospf 1
 router-id 1.1.1.1
 network 1.1.1.1 0.0.0.0 area 0
 network 10.1.1.0 0.0.0.3 area 0
-interface e1/0
+ interface e1/0
    ip ospf priority 0
 end
 
@@ -256,7 +259,6 @@ config t
 interface e1/2
    ip ospf network point-to-point
     do sh ip ospf int e1/2
-
 Task3: Eigrp and Ospf Redistribution:
 R4: sikat: Eigrp and OSPF world:
 config T
