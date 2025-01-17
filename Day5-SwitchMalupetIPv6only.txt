@@ -496,7 +496,7 @@ config t
 hostname PLDT-ITO
 Track 1 Int gi 0/1 line-protocol
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.62.1.6
 standby 1 preempt
 standby 1 Priority 150
 standby 1 Track 1 decrement 60
@@ -514,7 +514,7 @@ COREBABA/GLOBE:
 config t
 hostname GLOBE-ITO
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.62.1.6
 standby 1 preempt
 standby 1 Priority 100
 end
@@ -558,6 +558,15 @@ Int Range fa0/10-12
  channel-protocol Lacp
  do sh etherchannel summary
  do sh int po1 | inc BW
+
+!ang taong sigurista kailangan mag trunking
+Conf t
+int port-channel 1
+switchport trunk encaps dot1q
+switchport mode trunk
+switchport trunk allowed vlan 1-100
+end
+
 @d1
 conf t
 int range e0/0-3, e1/2-3
