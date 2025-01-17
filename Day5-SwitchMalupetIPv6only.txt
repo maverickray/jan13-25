@@ -45,17 +45,18 @@ iChamba:
 5th     0  0  0   0    0  0  1   0     0  :0200:
 6th     0  0  0   0    0  0  1   0     1  :0280:
 config t
-int lo 1
+ipv6 unicast-routing
+int lo1
  ipv6 add cafe:cafe:cafe:1212:0000::1212/73
-int lo 2
+int lo2
  ipv6 add cafe:cafe:cafe:1212:0080::1212/73
-int lo 3
+int lo3
  ipv6 add cafe:cafe:cafe:1212:0100::1212/73
-int lo 4
+int lo4
  ipv6 add cafe:cafe:cafe:1212:0180::1212/73
-int lo 5
+int lo5
  ipv6 add cafe:cafe:cafe:1212:0200::1212/73
-int lo 6
+int lo6
  ipv6 add cafe:cafe:cafe:1212:0280::1212/73
  do sh ipv6 int brief
 Configure IPV6 OSPF:
@@ -231,7 +232,7 @@ sh spanning-tree vlan 1
 TASK3: EXPENSIVE SWITCH/MANAGEABLE SWITCH:\ = 20k
 1. mac address learning": sh mac address-table
 2  mac address filtering
-3  mac address forwaring
+3  mac address forwarding
 4  Php: loop avoidance
 5. $$: Vlan Feature $$ = 60k up
 
@@ -248,6 +249,9 @@ Switch:  flash_init
 TASK5: HOW TO SPOT A VERY HEALTHY SWITCH?
 super healthy: "all flashing green."
 amber/orange: needs help. - you are protected
+
+
+! paano magnakaw legally
 
 create vlans,
 transfer ports to vlans
@@ -273,7 +277,7 @@ config t
 spanning-tree vlan 1-999
 end
 
-TASK7: HOW TO BECOME A WORLD-CLASS NETWORK ENGINEER
+TASK7: HOW TO BECOME A WORLD-CLASS NETWORK ENGINEER/ 3yrs experience
 SPECIALIZING IN SWITCH:
 Master the 4 super Hereos of Switching
 Qpid: 802.1Q:trunking
@@ -288,7 +292,7 @@ SuperMan: 802.1s: MiSTP
 
 TASK8: ACCESS PORTS VS TRUNK PORTS: lab mo sa exam.
 +
-TAAS/BABA:
+TAAS/BABA:-- actual lab exam
 config t
 Int Range fa0/10-12
  shutdown
@@ -350,6 +354,8 @@ spanning-tree BackBoneFast
 spanning-tree portfast bpduguard default
 Int Range fa0/1-8
    spanning-tree Portfast
+end
+
 @BABA/d2/a1/a2:
 config t
 spanning-tree Mode Rapid-pvst
@@ -363,10 +369,10 @@ end
 #sh int status err-disabled 
 TAAS: bounce/UP/down, bring BACK TO LIFE.
 config t
-int fa 0/3
+int fa 0/1
  shut
  no shut
-int fa 0/7
+int fa 0/5
  shut
  no shut
 end
@@ -552,6 +558,33 @@ Int Range fa0/10-12
  channel-protocol Lacp
  do sh etherchannel summary
  do sh int po1 | inc BW
+@d1
+conf t
+int range e0/0-3, e1/2-3
+switchport trunk encaps dot1q
+switchport trunk allowed vlan 1-100
+switchport mode trunk
+
+@d2
+conf t
+int range e0/0-3, e1/2-3
+switchport trunk encaps dot1q
+switchport trunk allowed vlan 1-100
+switchport mode trunk
+
+@a1
+conf t
+int range e0/1-3, e1/0
+switchport trunk encaps dot1q
+switchport trunk allowed vlan 1-100
+switchport mode trunk
+
+@a2
+conf t
+int range e0/0-3
+switchport trunk encaps dot1q
+switchport trunk allowed vlan 1-100
+switchport mode trunk
 
 TASK18: HOW TO RETAIN ALL THE INFORMATION:
 HOW TO GET CERTIFIED IN 2025!!!!
